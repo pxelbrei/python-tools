@@ -1,0 +1,10 @@
+from collections import Counter
+
+def analyze_logs(log_file, threshold=5):
+    with open(log_file, "r") as f:
+        ips = [line.split()[0] for line in f if "Failed login" in line]
+    suspicious_ips = [ip for ip, count in Counter(ips).items() if count > threshold]
+    return suspicious_ips
+
+# Beispielaufruf
+print("Verdächtige IPs:", analyze_logs("auth.log"))
