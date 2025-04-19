@@ -1,0 +1,11 @@
+import subprocess
+import re
+
+def scan_wifi():
+    result = subprocess.run(["netsh", "wlan", "show", "networks"], capture_output=True, text=True)
+    networks = re.findall(r"SSID \d+ : (.+)", result.stdout)
+    securities = re.findall(r"Authentication : (.+)", result.stdout)
+    for ssid, security in zip(networks, securities):
+        print(f"Netzwerk: {ssid} | Sicherheit: {security}")
+
+scan_wifi()
