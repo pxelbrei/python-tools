@@ -1,0 +1,13 @@
+import hashlib
+
+def crack_password(hash_to_crack, wordlist_path):
+    with open(wordlist_path, "r") as f:
+        for word in f.readlines():
+            word = word.strip()
+            hashed_word = hashlib.md5(word.encode()).hexdigest()
+            if hashed_word == hash_to_crack:
+                return f"Passwort gefunden: {word}"
+    return "Kein Treffer."
+
+# Beispielaufruf (MD5-Hash von "hello123")
+print(crack_password("f30aa7a662c728b7407c54ae6bfd27d1", "wordlist.txt"))
